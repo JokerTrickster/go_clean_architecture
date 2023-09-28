@@ -1,7 +1,6 @@
 package common
 
 import (
-	"context"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 )
@@ -29,7 +28,7 @@ func ValidateReq(c echo.Context, req interface{}) error {
 }
 
 // ValidateRes : validate REST API res body
-func ValidateRes(ctx context.Context, res interface{}) error {
+func ValidateRes(c echo.Context, res interface{}) error {
 	if err := val.Struct(res); err != nil {
 		return err
 	}

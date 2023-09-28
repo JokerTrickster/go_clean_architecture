@@ -9,10 +9,7 @@ import (
 
 var MongoClient *mongo.Client
 var (
-	UserCollection          *mongo.Collection
-	RewardCollection        *mongo.Collection
-	RewardHistoryCollection *mongo.Collection
-	AdvertiseCollection     *mongo.Collection
+	UserCollection *mongo.Collection
 )
 
 var (

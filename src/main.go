@@ -1,15 +1,41 @@
 package main
 
 import (
-	"net/http"
-
+	"fmt"
 	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
+	"main/common/db/mongodb"
+	swaggerDocs "main/docs"
+	"main/features"
+	"main/middleware"
+	"os"
 )
 
 func main() {
+	port := os.Getenv("APP_PORT")
+	if port == "" {
+		port = "3000" // 기본 포트 번호
+	}
+
 	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
-	e.Logger.Fatal(e.Start(":3000"))
+	//미들웨어 초기화
+	if err := middleware.InitMiddleware(e); err != nil {
+		fmt.Println(err)
+		return
+	}
+	if err := mongodb.Init(); err != nil {
+		fmt.Println(err)
+		return
+	}
+	//핸드러 초기화
+	if err := features.InitHandler(e); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// swagger 초기화
+	swaggerDocs.SwaggerInfo.Host = "localhost:" + port
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.HideBanner = true
+	e.Logger.Fatal(e.Start(":" + port))
 }

@@ -16,9 +16,9 @@ var (
 )
 
 var (
-	mongoHost    = "localhost"   // Docker Compose에서 정의한 서비스 이름
-	mongoPort    = 27019         // MongoDB 포트
-	databaseName = "buzzvil_dev" // 사용할 데이터베이스 이름
+	mongoHost    = "localhost" // Docker Compose에서 정의한 서비스 이름
+	mongoPort    = 27026       // MongoDB 포트
+	databaseName = "ryan_dev"  // 사용할 데이터베이스 이름
 )
 
 func Init() error {
@@ -32,14 +32,12 @@ func Init() error {
 	if err != nil {
 		return err
 	}
+	fmt.Println("success db connect!!")
 	return nil
 }
 func InitCollection() error {
 	mongoDB := MongoClient.Database(databaseName)
 	UserCollection = mongoDB.Collection("user")
-	RewardHistoryCollection = mongoDB.Collection("rewardHistory")
-	RewardCollection = mongoDB.Collection("reward")
-	AdvertiseCollection = mongoDB.Collection("advertise")
 	return nil
 }
 

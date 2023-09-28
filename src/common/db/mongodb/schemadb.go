@@ -27,8 +27,7 @@ type UserDTO struct {
 	Name        string             `bson:"name"`
 	Gender      string             `bson:"gender"`
 	Country     string             `bson:"country"`
-	Age         int64              `bson:"age"`
-	LastSignIn  time.Time          `bson:"lastSignIn"`
+	Age         int32              `bson:"age"`
 }
 type AdvertiseSendHistoryDTO struct {
 	MID         primitive.ObjectID `bson:"_id,omitempty"`

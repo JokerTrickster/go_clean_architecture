@@ -10,3 +10,7 @@ type IGetsUserRepository interface {
 	FindUser(ctx context.Context, query bson.D) ([]mongodb.UserDTO, error)
 	CountUser(ctx context.Context, query bson.D) (int32, error)
 }
+
+type IAddUserRepository interface {
+	InsertOneUser(ctx context.Context, userDTO mongodb.UserDTO) error
+}

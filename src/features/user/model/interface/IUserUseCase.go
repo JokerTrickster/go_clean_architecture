@@ -7,5 +7,8 @@ import (
 )
 
 type IGetsUserUseCase interface {
-	Gets(c context.Context, req *request.ReqGetsUser) (response.ResGetsUser, error)
+	Gets(c context.Context) (response.ResGetsUser, error)
+}
+type IAddUserUseCase interface {
+	Add(c context.Context, req *request.ReqAddUser) error
 }

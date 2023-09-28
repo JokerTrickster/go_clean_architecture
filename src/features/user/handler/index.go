@@ -10,4 +10,5 @@ import (
 
 func NewUserHandler(c *echo.Echo) {
 	NewGetsUserHandler(c, usecase.NewGetsUserUseCase(repository.NewGetsUserRepository(mongodb.UserCollection), 8*time.Second))
+	NewAddUserHandler(c, usecase.NewAddUserUseCase(repository.NewAddUserRepository(mongodb.UserCollection), 8*time.Second))
 }

@@ -21,8 +21,8 @@ type AdvertiseDTO struct {
 type UserDTO struct {
 	MID         primitive.ObjectID `bson:"_id,omitempty"`
 	IsDeleted   bool               `bson:"isDeleted"`
-	Created     time.Time          `bson:"created"`
-	LastUpdated time.Time          `bson:"lastUpdated"`
+	Created     *time.Time         `bson:"created,required"`
+	LastUpdated *time.Time         `bson:"lastUpdated,required"`
 	ID          string             `bson:"id"`
 	Name        string             `bson:"name"`
 	Gender      string             `bson:"gender"`

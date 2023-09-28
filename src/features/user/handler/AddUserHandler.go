@@ -4,24 +4,25 @@ import (
 	"github.com/labstack/echo/v4"
 	"main/common"
 	_interface "main/features/user/model/interface"
+	"main/features/user/model/request"
 	"net/http"
 )
 
-type GetsUserHandler struct {
-	UseCase _interface.IGetsUserUseCase
+type AddUserHandler struct {
+	UseCase _interface.IAddUserUseCase
 }
 
-func NewGetsUserHandler(c *echo.Echo, useCase _interface.IGetsUserUseCase) _interface.IGetsUserHandler {
-	handler := &GetsUserHandler{
+func NewAddUserHandler(c *echo.Echo, useCase _interface.IAddUserUseCase) _interface.IAddUserHandler {
+	handler := &AddUserHandler{
 		UseCase: useCase,
 	}
-	c.GET("/v0.1/user", handler.Gets)
+	c.POST("/v0.1/user", handler.Add)
 	return handler
 }
 
-// 유저 정보 리스트 API
-// @Router /v0.1/user [get]
-// @Summary 유저 정보 리스트 API
+// 유저 정보 저장하기 API
+// @Router /v0.1/user [post]
+// @Summary 유저 정보 저장하기 API
 // @Description
 // @Description ■ errCode with 400
 // @Description PARAM_BAD : 파라미터 오류
@@ -33,19 +34,21 @@ func NewGetsUserHandler(c *echo.Echo, useCase _interface.IGetsUserUseCase) _inte
 // @Description ■ errCode with 500
 // @Description INTERNAL_SERVER : 내부 로직 처리 실패
 // @Description INTERNAL_DB : DB 처리 실패
+// @Param json body request.ReqAddUser true "유저 ID, 유저 성별, 유저 국가"
 // @Produce json
-// @Success 200 {object} response.ResGetsUser
+// @Success 200 {object} bool
 // @Failure 400 {object} error
 // @Failure 500 {object} error
 // @Tags user
-func (d *GetsUserHandler) Gets(c echo.Context) error {
+func (d *AddUserHandler) Add(c echo.Context) error {
 	ctx := c.Request().Context()
-	res, err := d.UseCase.Gets(ctx)
+	req := &request.ReqAddUser{}
+	if err := common.ValidateReq(c, req); err != nil {
+		return c.JSON(http.StatusBadRequest, err)
+	}
+	err := d.UseCase.Add(ctx, req)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
-	if err := common.ValidateRes(c, res); err != nil {
-		return c.JSON(http.StatusBadRequest, err)
-	}
-	return c.JSON(http.StatusOK, res)
+	return c.JSON(http.StatusOK, true)
 }

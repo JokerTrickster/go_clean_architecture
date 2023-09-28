@@ -3,7 +3,6 @@ package usecase
 import (
 	"context"
 	_interface "main/features/user/model/interface"
-	"main/features/user/model/request"
 	"main/features/user/model/response"
 	"time"
 )
@@ -17,7 +16,7 @@ func NewGetsUserUseCase(repo _interface.IGetsUserRepository, timeout time.Durati
 	return &GetsUserUseCase{Repository: repo, ContextTimeout: timeout}
 }
 
-func (s *GetsUserUseCase) Gets(c context.Context, req *request.ReqGetsUser) (response.ResGetsUser, error) {
+func (s *GetsUserUseCase) Gets(c context.Context) (response.ResGetsUser, error) {
 	ctx, cancel := context.WithTimeout(c, s.ContextTimeout)
 	defer cancel()
 	//create query

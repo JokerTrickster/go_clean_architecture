@@ -1,5 +1,16 @@
 definitions:
-  request.ReqGetsUser:
+  request.ReqAddUser:
+    properties:
+      age:
+        type: integer
+      country:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
     type: object
   response.GetsUserInfo:
     properties:
@@ -39,13 +50,6 @@ paths:
         ■ errCode with 500
         INTERNAL_SERVER : 내부 로직 처리 실패
         INTERNAL_DB : DB 처리 실패
-      parameters:
-      - description: 유저 ID, 유저 성별, 유저 국가
-        in: body
-        name: json
-        required: true
-        schema:
-          $ref: '#/definitions/request.ReqGetsUser'
       produces:
       - application/json
       responses:
@@ -60,6 +64,41 @@ paths:
           description: Internal Server Error
           schema: {}
       summary: 유저 정보 리스트 API
+      tags:
+      - user
+    post:
+      description: |-
+        ■ errCode with 400
+        PARAM_BAD : 파라미터 오류
+
+        ■ errCode with 401
+        TOKEN_BAD : 토큰 인증 실패
+        POLICY_VIOLATION : 토큰 세션 정책 위반
+
+        ■ errCode with 500
+        INTERNAL_SERVER : 내부 로직 처리 실패
+        INTERNAL_DB : DB 처리 실패
+      parameters:
+      - description: 유저 ID, 유저 성별, 유저 국가
+        in: body
+        name: json
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqAddUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: 유저 정보 저장하기 API
       tags:
       - user
 swagger: "2.0"

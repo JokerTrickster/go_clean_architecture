@@ -21,8 +21,8 @@ func NewGetsUserHandler(c *echo.Echo, useCase _interface.IGetsUserUseCase) _inte
 }
 
 // 유저 정보 리스트 API
-// @Router /v0.1/reward/deposit [put]
-// @Summary 유저 정보 리스트  API
+// @Router /v0.1/user [get]
+// @Summary 유저 정보 리스트 API
 // @Description
 // @Description ■ errCode with 400
 // @Description PARAM_BAD : 파라미터 오류
@@ -39,7 +39,7 @@ func NewGetsUserHandler(c *echo.Echo, useCase _interface.IGetsUserUseCase) _inte
 // @Success 200 {object} response.ResGetsUser
 // @Failure 400 {object} error
 // @Failure 500 {object} error
-// @Tags reward
+// @Tags user
 func (d *GetsUserHandler) Gets(c echo.Context) error {
 	ctx := c.Request().Context()
 	req := &request.ReqGetsUser{}
@@ -50,6 +50,8 @@ func (d *GetsUserHandler) Gets(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
-
+	if err := common.ValidateRes(c, res); err != nil {
+		return c.JSON(http.StatusBadRequest, err)
+	}
 	return c.JSON(http.StatusOK, res)
 }

@@ -20,11 +20,20 @@ func NewGetsUserUseCase(repo _interface.IGetsUserRepository, timeout time.Durati
 func (s *GetsUserUseCase) Gets(c context.Context, req *request.ReqGetsUser) (response.ResGetsUser, error) {
 	ctx, cancel := context.WithTimeout(c, s.ContextTimeout)
 	defer cancel()
-	userDTOList, err := s.Repository.FindUser(ctx)
+	//create query
+	query, err := CreateGetsQuery()
 	if err != nil {
 		return response.ResGetsUser{}, err
 	}
-	res, err := CreateGetsRes(ctx, userDTOList)
+	//find user list
+	userDTOList, err := s.Repository.FindUser(ctx, query)
+	if err != nil {
+		return response.ResGetsUser{}, err
+	}
+	//count user list
+	count, err := s.Repository.CountUser(ctx, query)
+	//create response
+	res, err := CreateGetsRes(ctx, userDTOList, count)
 	if err != nil {
 		return response.ResGetsUser{}, err
 	}

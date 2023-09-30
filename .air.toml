@@ -12,7 +12,7 @@ tmp_dir = "tmp"
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
   follow_symlink = false
-  full_bin = "PROJECT=medical-m03 PORT=3000 MODULE=api ENV=dev REGION=ap-northeast-2 IS_LOCAL=true IS_DEBUG=true PARAM_GCP_PROJ=gcp_bulo-wellness-v2 IS_SESSION_SINGLE=false VER=210101_000000 ./tmp/main"
+  full_bin = "PORT=3000 ./tmp/main"
   include_dir = []
   include_ext = ["go", "tpl", "tmpl", "html"]
   kill_delay = "0s"

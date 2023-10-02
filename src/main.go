@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
+	"main/common/aws/cssm"
 	"main/common/db/mongodb"
 	swaggerDocs "main/docs"
 	"main/features"
@@ -16,7 +17,10 @@ func main() {
 	if port == "" {
 		port = "3000" // 기본 포트 번호
 	}
-
+	if err := cssm.InitAwsSsm(); err != nil {
+		fmt.Println(err)
+		return
+	}
 	e := echo.New()
 	//미들웨어 초기화
 	if err := middleware.InitMiddleware(e); err != nil {

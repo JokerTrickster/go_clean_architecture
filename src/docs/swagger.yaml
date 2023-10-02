@@ -37,6 +37,35 @@ definitions:
 info:
   contact: {}
 paths:
+  /v0.1/auth/accessToken:
+    get:
+      description: |-
+        ■ errCode with 400
+        PARAM_BAD : 파라미터 오류
+
+        ■ errCode with 401
+        TOKEN_BAD : 토큰 인증 실패
+        POLICY_VIOLATION : 토큰 세션 정책 위반
+
+        ■ errCode with 500
+        INTERNAL_SERVER : 내부 로직 처리 실패
+        INTERNAL_DB : DB 처리 실패
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: 액세스 토큰 생성하기
+      tags:
+      - auth
   /v0.1/user:
     get:
       description: |-

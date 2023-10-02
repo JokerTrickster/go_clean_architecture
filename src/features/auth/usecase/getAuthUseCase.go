@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"fmt"
 	"main/common/aws/cssm"
 	_interface "main/features/auth/model/interface"
 	"time"
@@ -24,10 +23,10 @@ func (s *GetAuthUseCase) Get(c context.Context) error {
 	if err != nil {
 		return err
 	}
-	body, err := HttpAPICall(ctx, url)
+	_, err = HttpAPICall(ctx, url)
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(body))
+
 	return nil
 }

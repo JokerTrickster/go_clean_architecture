@@ -9,5 +9,5 @@ import (
 )
 
 func NewAuthHandler(c *echo.Echo) {
-	NewGetAuthHandler(c, usecase.NewGetAuthUseCase(repository.NewGetAuthRepository(mongodb.UserCollection), 8*time.Second))
+	NewGetAuthHandler(c, usecase.NewGetAuthUseCase(repository.NewGetAuthRepository(mongodb.UserCollection), 100*time.Second))
 }

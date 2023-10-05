@@ -30,8 +30,7 @@ func InitAwsSsm() error {
 	return nil
 }
 
-func AwsGetParam(path string) (string, error) {
-	ctx := context.TODO()
+func AwsGetParam(ctx context.Context, path string) (string, error) {
 	param, err := AwsClientSsm.GetParameter(ctx, &ssm.GetParameterInput{
 		Name:           aws.String(path),
 		WithDecryption: common.BoolToPointer(true),

@@ -28,8 +28,8 @@ jobs:
           from datetime import datetime
           
           # GitHub 리포지토리 및 API 엔드포인트 설정
-          repo_owner = 'YourRepoOwner'
-          repo_name = 'YourRepoName'
+          repo_owner = 'JokerTrickster'
+          repo_name = 'go_clean_architecture'
           api_url = f'https://api.github.com/repos/{repo_owner}/{repo_name}/issues'
           
           # Webhook URL 설정

@@ -2,11 +2,12 @@ name: Send Open Issues to Google Chat
 
 on:
   schedule:
-    #- cron: '0 0 * * *' # 매일 자정에 실행
+    - cron: '0 0 * * *' # 매일 자정에 실행
     - cron: '*/1 * * * *' # 매분마다 실행
+
 jobs:
   send-issues:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout 코드
@@ -28,9 +29,7 @@ jobs:
           from datetime import datetime
           
           # GitHub 리포지토리 및 API 엔드포인트 설정
-          repo_owner = 'JokerTrickster'
-          repo_name = 'go_clean_architecture'
-          api_url = f'https://api.github.com/repos/{repo_owner}/{repo_name}/issues'
+          api_url = f'https://api.github.com/repos/JokerTrickster/go_clean_architecture/issues'
           
           # Webhook URL 설정
           webhook_url = os.environ['WEBHOOK_URL']

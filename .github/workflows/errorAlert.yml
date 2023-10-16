@@ -1,0 +1,60 @@
+name: Send Open Issues to Google Chat
+
+on:
+  schedule:
+    #- cron: '0 0 * * *' # 매일 자정에 실행
+    - cron: '*/1 * * * *' # 매분마다 실행
+jobs:
+  send-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 코드
+        uses: actions/checkout@v2
+
+      - name: Python 설치
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Python 스크립트 실행
+        env:
+          # GitHub Secrets에 설정된 WEBHOOK_URL 시크릿을 사용
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          python - <<EOF
+          import requests
+          import os
+          from datetime import datetime
+          
+          # GitHub 리포지토리 및 API 엔드포인트 설정
+          repo_owner = 'YourRepoOwner'
+          repo_name = 'YourRepoName'
+          api_url = f'https://api.github.com/repos/{repo_owner}/{repo_name}/issues'
+          
+          # Webhook URL 설정
+          webhook_url = os.environ['WEBHOOK_URL']
+          
+          # 현재 날짜 계산
+          today = datetime.now().strftime('%Y-%m-%d')
+          
+          # GitHub API를 사용하여 open되어 있는 issue 가져오기
+          response = requests.get(api_url, params={'state': 'open'})
+          issues = response.json()
+          
+          # 구글 챗에 issue 목록 전송
+          if issues:
+              message = f"매분마다 open되어 있는 issue 목록 ({today}):\n\n"
+              for issue in issues:
+                  message += f"- {issue['title']} ({issue['html_url']})\n"
+              payload = {
+                  'text': message
+              }
+              response = requests.post(webhook_url, json=payload)
+              if response.status_code == 200:
+                  print("메시지가 성공적으로 전송되었습니다.")
+              else:
+                  print(f"메시지 전송 실패: {response.status_code}")
+          else:
+              print("open되어 있는 issue가 없습니다.")
+          EOF

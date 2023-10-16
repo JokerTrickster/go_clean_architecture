@@ -23,6 +23,8 @@ jobs:
           # GitHub Secrets에 설정된 WEBHOOK_URL 시크릿을 사용
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
+          pip install requests  # requests 모듈 설치
+          
           python - <<EOF
           import requests
           import os

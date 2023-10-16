@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '0 0 * * *' # 매일 자정에 실행
     - cron: '*/1 * * * *' # 매분마다 실행
+  workflow_dispatch: # 이벤트가 workflow_dispatch일 때만 실행
 
 jobs:
   send-issues:

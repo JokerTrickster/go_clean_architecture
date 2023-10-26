@@ -32,6 +32,62 @@
                 }
             }
         },
+        "/v0.1/test/cpu": {
+            "get": {
+                "description": "■ errCode with 400\nPARAM_BAD : 파라미터 오류\n\n■ errCode with 401\nTOKEN_BAD : 토큰 인증 실패\nPOLICY_VIOLATION : 토큰 세션 정책 위반\n\n■ errCode with 500\nINTERNAL_SERVER : 내부 로직 처리 실패\nINTERNAL_DB : DB 처리 실패",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "cpu pprof 테스트",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/v0.1/test/memory": {
+            "get": {
+                "description": "■ errCode with 400\nPARAM_BAD : 파라미터 오류\n\n■ errCode with 401\nTOKEN_BAD : 토큰 인증 실패\nPOLICY_VIOLATION : 토큰 세션 정책 위반\n\n■ errCode with 500\nINTERNAL_SERVER : 내부 로직 처리 실패\nINTERNAL_DB : DB 처리 실패",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "memory pprof 테스트",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {}
+                    }
+                }
+            }
+        },
         "/v0.1/user": {
             "get": {
                 "description": "■ errCode with 400\nPARAM_BAD : 파라미터 오류\n\n■ errCode with 401\nTOKEN_BAD : 토큰 인증 실패\nPOLICY_VIOLATION : 토큰 세션 정책 위반\n\n■ errCode with 500\nINTERNAL_SERVER : 내부 로직 처리 실패\nINTERNAL_DB : DB 처리 실패",

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	echopprof "github.com/hiko1129/echo-pprof"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"main/common/aws/cssm"
@@ -36,6 +37,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	echopprof.Wrap(e)
 
 	// swagger 초기화
 	swaggerDocs.SwaggerInfo.Host = "localhost:" + port

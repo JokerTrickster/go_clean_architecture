@@ -8,6 +8,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.18.42
 	github.com/aws/aws-sdk-go-v2/service/ssm v1.38.0
 	github.com/go-playground/validator/v10 v10.15.4
+	github.com/hiko1129/echo-pprof v1.0.1
 	github.com/labstack/echo/v4 v4.11.1
 	github.com/labstack/gommon v0.4.0
 	github.com/prometheus/client_golang v1.17.0

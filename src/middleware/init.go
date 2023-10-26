@@ -21,7 +21,7 @@ func InitMiddleware(e *echo.Echo) error {
 	e.Use(middleware.TimeoutWithConfig(middleware.TimeoutConfig{
 		Skipper:      middleware.DefaultTimeoutConfig.Skipper,
 		ErrorMessage: "timeout",
-		Timeout:      24 * time.Second,
+		Timeout:      180 * time.Second,
 	}))
 
 	return nil
